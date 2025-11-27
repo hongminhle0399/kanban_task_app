@@ -1,16 +1,18 @@
 'use client'
 
-import { ChevronDown, LayoutDashboard, LogOut, Search } from "lucide-react"
-import { Button } from "../../ui/button"
-import { Input } from "../../ui/input"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../../ui/dialog'
+import { LayoutDashboard, LogOut, Search } from "lucide-react"
+import { Button } from "@/shared/ui/button"
+import { Input } from "@/shared/ui/input"
 import { useState } from "react"
-import { useBoardStore } from "@/features/dashboard/store/boardStore"
 import { useAuthStore } from "@/features/auth/store/authStore"
 import { authApi } from "@/features/auth/services/auth-api"
 // import BoardSelector from "./BoardSelector"
 
-function Header() {
+export interface HeaderProps {
+    leftSlot?: React.ReactNode
+}
+
+function Header({ leftSlot }: HeaderProps) {
     const [searchQuery, setSearchQuery] = useState<string>('')
     const username = useAuthStore(state => state.username)
 
@@ -27,8 +29,7 @@ function Header() {
                     </div>
                     <h1 className="text-xl hidden sm:block">Kanban Board</h1>
 
-                    {/* Board Selector Button */}
-                    {/* <BoardSelector /> */}
+                    {leftSlot}
                 </div>
 
                 {/* Search Bar */}

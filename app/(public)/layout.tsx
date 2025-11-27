@@ -1,3 +1,4 @@
+import { BoardSelector } from "@/features/dashboard/ui/BoardSelector";
 import Header from "@/shared/layout/Header"
 
 export default function PublicLayout({
@@ -6,7 +7,7 @@ export default function PublicLayout({
     children: React.ReactNode;
 }>) {
     return <>
-        <Header />
+        <Header leftSlot={<BoardSelector />} />
         {children}
     </>
 
