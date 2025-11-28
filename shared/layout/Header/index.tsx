@@ -6,7 +6,6 @@ import { Input } from "@/shared/ui/input"
 import { useState } from "react"
 import { useAuthStore } from "@/features/auth/store/authStore"
 import { authApi } from "@/features/auth/services/auth-api"
-// import BoardSelector from "./BoardSelector"
 
 export interface HeaderProps {
     leftSlot?: React.ReactNode
