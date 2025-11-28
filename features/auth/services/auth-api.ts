@@ -3,11 +3,11 @@ import { AccessTokenResponse, AuthResponse, LoginRequest, RegisterRequest } from
 
 export const authApi = {
     login: async (credentials: LoginRequest): Promise<AuthResponse> => {
-        const response = await api.post<AuthResponse>('/login', credentials)
+        const response = await api.post<AuthResponse>('/auth/login', credentials)
         return response.data
     },
     register: async (userData: RegisterRequest): Promise<AuthResponse> => {
-        const response = await api.post<AuthResponse>('/register', userData)
+        const response = await api.post<AuthResponse>('/auth/register', userData)
         return response.data
     },
     logout: async (): Promise<void> => {
