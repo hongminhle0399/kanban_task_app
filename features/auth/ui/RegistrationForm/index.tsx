@@ -7,18 +7,33 @@ import { Button } from '@/shared/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/shared/ui/form'
 import { Input } from '@/shared/ui/input'
 import { Card, CardContent, CardTitle, CardHeader, CardDescription } from '@/shared/ui/card'
+import { toast } from 'sonner'
+import { authApi } from '../../services/auth-api'
+import { useRouter } from 'next/navigation'
 
 export default function RegistrationForm() {
+    const router = useRouter()
     const form = useForm<RegistrationFormValues>({
         resolver: yupResolver(schema),
         mode: 'onBlur',
+        defaultValues: {
+            confirmPassword: '',
+            name: '',
+            email: '',
+            password: '',
+        }
     })
 
     const { handleSubmit, control, formState: { isSubmitting } } = form
 
     const onSubmit = async (values: RegistrationFormValues) => {
-        // Replace with actual registration logic once API is ready
-        console.log('Submitting registration form', values)
+        try {
+            await authApi.register(values)
+            toast.success('Registration successful!')
+            router.push('/login')
+        } catch (error) {
+            toast.error('Registration failed!')
+        }
     }
 
     return (
@@ -70,7 +85,7 @@ export default function RegistrationForm() {
                                 <FormItem>
                                     <FormLabel>Password</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="••••••••" type="password" {...field} />
+                                        <Input autoComplete='off' placeholder="••••••••" type="password" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -84,7 +99,7 @@ export default function RegistrationForm() {
                                 <FormItem>
                                     <FormLabel>Confirm Password</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="••••••••" type="password" {...field} />
+                                        <Input autoComplete='off' placeholder="••••••••" type="password" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>

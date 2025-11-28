@@ -1,28 +1,43 @@
 'use client'
 
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import Link from "next/link";
+
 import { Button } from "@/shared/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/shared/ui/card";
 import { Input } from "@/shared/ui/input";
-import { useForm } from "react-hook-form";
 import { LoginFormValue, schema } from "./LoginForm.schema";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
-import Link from "next/link";
 import { authApi } from "../../services/auth-api";
 import { useAuthStore } from "../../store/authStore";
+import { useRouter } from "next/navigation";
 
 export function LoginForm() {
     const { setAccessToken } = useAuthStore()
+    const router = useRouter()
     const form = useForm<LoginFormValue>({
         resolver: yupResolver(schema),
-        mode: 'onBlur'
+        mode: 'onBlur',
+        defaultValues: {
+            email: '',
+            password: ''
+        }
     })
 
     const { handleSubmit, control } = form
 
     const onSubmit = async (credentails: LoginFormValue) => {
-        const response = await authApi.login(credentails)
-        setAccessToken(response.accessToken)
+        try {
+            const response = await authApi.login(credentails)
+            setAccessToken(response.accessToken)
+            toast.success('Login successful!')
+            router.replace('/dashboard')
+        } catch (error) {
+            console.log(error)
+            toast.error('Login failed')
+        }
     }
 
     return <Card className="w-full max-w-md shadow-xl border-2">
@@ -45,7 +60,7 @@ export function LoginForm() {
                             return <FormItem>
                                 <FormLabel>Email</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="your@example.com" {...field} />
+                                    <Input autoComplete="email" {...field} placeholder="your@example.com" />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -58,7 +73,7 @@ export function LoginForm() {
                             return <FormItem>
                                 <FormLabel>Password</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="••••••••" {...field} />
+                                    <Input autoComplete="current-password" {...field} type="password" placeholder="••••••••" />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
