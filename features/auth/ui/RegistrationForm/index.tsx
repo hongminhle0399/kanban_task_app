@@ -10,6 +10,7 @@ import { Card, CardContent, CardTitle, CardHeader, CardDescription } from '@/sha
 import { toast } from 'sonner'
 import { authApi } from '../../services/auth-api'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 export default function RegistrationForm() {
     const router = useRouter()
@@ -18,7 +19,6 @@ export default function RegistrationForm() {
         mode: 'onBlur',
         defaultValues: {
             confirmPassword: '',
-            name: '',
             email: '',
             password: '',
         }
@@ -37,39 +37,20 @@ export default function RegistrationForm() {
     }
 
     return (
-        <Card className="w-full max-w-md shadow-xl border-2">
-            <CardHeader className="space-y-1 text-center">
-                <div className="mx-auto bg-linear-to-br from-blue-500 to-blue-600 p-3 rounded-xl shadow-lg w-fit mb-4">
-                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                    </svg>
-                </div>
-                <CardTitle className="text-3xl">Create an account</CardTitle>
-                <CardDescription>Sign up to get started with your Kanban board</CardDescription>
+        <Card className="w-full max-w-md border-1">
+            <CardHeader className="space-y-2 gap-y-0 gap-x-2 text-center">
+                <CardTitle className="text-2xl font-normal text-center tracking-tight">Create an account</CardTitle>
+                <CardDescription className="text-center">Join TaskFlow and start managing your tasks efficiently</CardDescription>
             </CardHeader>
             <CardContent>
                 <Form {...form}>
-                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                        <FormField
-                            control={control}
-                            name="name"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Name</FormLabel>
-                                    <FormControl>
-                                        <Input placeholder='Peter Parker' {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-
+                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                         <FormField
                             control={control}
                             name="email"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Email</FormLabel>
+                                    <FormLabel className='font-normal'>Email</FormLabel>
                                     <FormControl>
                                         <Input autoComplete='email' placeholder='you@example.com' type="email" {...field} />
                                     </FormControl>
@@ -83,7 +64,7 @@ export default function RegistrationForm() {
                             name="password"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Password</FormLabel>
+                                    <FormLabel className='font-normal'>Password</FormLabel>
                                     <FormControl>
                                         <Input autoComplete='off' placeholder="••••••••" type="password" {...field} />
                                     </FormControl>
@@ -97,7 +78,7 @@ export default function RegistrationForm() {
                             name="confirmPassword"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Confirm Password</FormLabel>
+                                    <FormLabel className='font-normal'>Confirm Password</FormLabel>
                                     <FormControl>
                                         <Input autoComplete='off' placeholder="••••••••" type="password" {...field} />
                                     </FormControl>
@@ -113,6 +94,16 @@ export default function RegistrationForm() {
                         >
                             {isSubmitting ? "Submitting..." : "Register"}
                         </Button>
+
+                        <div className="text-center text-sm">
+                            <span className="text-muted-foreground">Already have an account? </span>
+                            <Link
+                                href="./login"
+                                className="text-primary hover:underline font-normal"
+                            >
+                                Sign in
+                            </Link>
+                        </div>
                     </form>
                 </Form>
             </CardContent>

@@ -15,7 +15,7 @@ export interface AuthResponse {
 
 export interface RegisterRequest {
     email: string
-    name: string
+    // name: string
     password: string
 }
 

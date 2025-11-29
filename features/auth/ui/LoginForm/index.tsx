@@ -40,25 +40,20 @@ export function LoginForm() {
         }
     }
 
-    return <Card className="w-full max-w-md shadow-xl border-2">
-        <CardHeader className="space-y-1 text-center">
-            <div className="mx-auto bg-linear-to-br from-blue-500 to-blue-600 p-3 rounded-xl shadow-lg w-fit mb-4">
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                </svg>
-            </div>
-            <CardTitle className="text-3xl">Welcome back</CardTitle>
+    return <Card className="w-full max-w-md border-1">
+        <CardHeader className="space-y-2 gap-x-2 gap-y-0 text-center">
+            <CardTitle className="text-2xl font-normal tracking-tight">Welcome back</CardTitle>
             <CardDescription>Sign in to your account to continue</CardDescription>
         </CardHeader>
         <CardContent>
             <Form {...form}>
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                     <FormField
                         control={control}
                         name='email'
                         render={({ field }) => {
                             return <FormItem>
-                                <FormLabel>Email</FormLabel>
+                                <FormLabel className="font-normal">Email</FormLabel>
                                 <FormControl>
                                     <Input autoComplete="email" {...field} placeholder="your@example.com" />
                                 </FormControl>
@@ -71,7 +66,7 @@ export function LoginForm() {
                         name="password"
                         render={({ field }) => {
                             return <FormItem>
-                                <FormLabel>Password</FormLabel>
+                                <FormLabel className="font-normal">Password</FormLabel>
                                 <FormControl>
                                     <Input autoComplete="current-password" {...field} type="password" placeholder="••••••••" />
                                 </FormControl>
@@ -79,7 +74,7 @@ export function LoginForm() {
                             </FormItem>
                         }}
                     />
-                    <Button type="submit" className="w-full bg-linear-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 shadow-md">
+                    <Button type="submit" className="w-full shadow-md">
                         Sign In
                     </Button>
                     <div className="text-center">
@@ -88,6 +83,6 @@ export function LoginForm() {
                 </form>
             </Form>
         </CardContent>
-    </Card>
+    </Card >
 
 }
